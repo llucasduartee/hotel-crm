@@ -1,7 +1,7 @@
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
 
-from .models import Reservation
+from .models import Reservation, Room
 
 from django import forms
 
@@ -49,3 +49,20 @@ class UpdateReservationForm(forms.ModelForm):
 
         model = Reservation
         fields = ['first_name', 'last_name', 'email', 'check_in', 'check_out']
+
+
+class CreateRoomForm(forms.ModelForm):
+    class Meta:
+        model = Room
+        fields = ['number', 'capacity']
+
+class UpdateRoomForm(forms.ModelForm):
+    capacity = forms.IntegerField(min_value=1, max_value=6)
+    class Meta:
+        model = Room
+        fields = ['number', 'capacity']
+        def __init__(self, *args, **kwargs):
+            super(CreateReservationForm, self).__init__(*args, **kwargs)
+
+        
+            self.fields['capacity'].widget.attrs.update({'class': 'form-control'})

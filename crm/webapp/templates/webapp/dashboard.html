@@ -12,6 +12,13 @@
 
     </a>
 
+    {% if user.is_staff %}
+    <a class="btn btn-outline-primary btn-sm" href="{% url 'create-room' %}">
+        Create a new room &nbsp; <i class="fa fa-plus-circle" aria-hidden="true"></i>
+    </a>
+    <hr>
+{% endif %}
+
     <hr> 
 
     <table class="table table-hover table-bordered">

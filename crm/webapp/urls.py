@@ -23,7 +23,11 @@ urlpatterns = [
 
     path('cancel-reservation/<int:pk>', views.cancel_reservation, name="cancel-reservation"),
 
-
+    path('rooms', views.rooms, name="rooms"),
+    path('create-room', views.create_room, name="create-room"),
+    path('update-room/<int:pk>', views.update_room, name="update-room"),
+    path('delete-room/<int:pk>', views.delete_room, name="delete-room"),
+    path('room/<int:pk>', views.singular_room, name="room"),
     
 
 ]

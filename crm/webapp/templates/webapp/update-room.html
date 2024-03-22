@@ -1,0 +1,72 @@
+{% extends 'webapp/base.html' %}
+
+{% load crispy_forms_tags %}
+
+
+{% block content %}
+
+<body>
+
+    <div class="container bg-light shadow-md p-5 form-layout">
+
+        <h3> Update reservation </h3>
+
+        <h6> Update your reservation details down below. </h6>
+
+        <hr>
+        <br>
+
+        <form method="POST" autocomplete="off">
+
+            {% csrf_token %}
+
+            {{form.number|as_crispy_field}}
+
+            <br>
+
+            {{form.capacity|as_crispy_field}}
+
+            <br>
+
+           
+
+            <br>
+
+            <button type="submit" class="btn btn-info"> 
+                
+                Update room &nbsp; <i class="fa fa-plus" aria-hidden="true"></i>
+            
+            </button>
+
+            &nbsp; 
+            
+            <a href="{% url 'rooms' %}" class="btn btn-secondary"> 
+
+
+                Return &nbsp; <i class="fa fa-arrow-left" aria-hidden="true"></i>
+
+            </a>
+
+
+        </form>
+
+    </div>
+
+    <br>
+    {% if form.errors %}
+    <div class="alert alert-danger">
+      <p>Please correct the following errors:</p>
+      <ul>
+        {% for field in form %} {% for error in field.errors %}
+        <li><strong>{{ field.label }}:</strong> {{ error }}</li>
+        {% endfor %} {% endfor %} {% for error in form.non_field_errors %}
+        <li>{{ error }}</li>
+        {% endfor %}
+      </ul>
+    </div>
+    {% endif %}
+
+</body>
+
+
+{% endblock %}

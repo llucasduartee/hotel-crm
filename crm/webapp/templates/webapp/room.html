@@ -1,0 +1,49 @@
+{% extends 'webapp/base.html' %}
+
+{% block content %}
+
+    <div class="card">
+
+
+        <div class="card-body">
+
+            <i class="fa fa-h-square" aria-hidden="true"></i> &nbsp;
+
+            <strong>   
+
+                {{room.number}}
+    
+    
+            </strong>
+    
+            <hr> 
+
+            <p> <strong> ID: </strong> {{room.id}} </p>
+
+            <p> <strong> Room Number: </strong> {{room.number}} </p>
+
+            <p> <strong> Capacity: </strong> {{room.capacity}} </p>
+
+
+
+
+        </div>
+
+
+    </div>
+
+    <br>
+
+    <a href="{% url 'rooms' %}" class="btn btn-secondary"> Return &nbsp; <i class="fa fa-arrow-left" aria-hidden="true"></i> </a>
+
+    &nbsp;
+
+    <a href="{% url 'update-room' room.id %}" class="btn btn-info"> Update room &nbsp; <i class="fa fa-plus" aria-hidden="true"></i> </a>
+
+    &nbsp;
+
+    <a href="{% url 'delete-room' room.id %}" class="btn btn-danger"> Delete room &nbsp;<i class="fa fa-minus-square" aria-hidden="true"></i> </a>
+
+
+{% endblock %}
+

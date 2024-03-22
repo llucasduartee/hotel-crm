@@ -1,6 +1,6 @@
 from django.http import HttpResponse
 from django.shortcuts import render, redirect
-from .forms import CreateUserForm, LoginForm, CreateReservationForm, UpdateReservationForm
+from .forms import CreateUserForm, LoginForm, CreateReservationForm, UpdateReservationForm, CreateRoomForm, UpdateRoomForm
 from django.db import transaction
 from django.contrib.auth.models import auth
 from django.contrib.auth import authenticate
@@ -196,8 +196,77 @@ def cancel_reservation(request, pk):
     return redirect("dashboard")
 
 
+@login_required(login_url='login')
+def rooms(request):
+
+    if request.user.is_staff:
+        rooms = Room.objects.all()
+    
+
+        context = {'rooms': rooms}
+  
+
+        return render(request, 'webapp/rooms.html', context=context)
+    
+@login_required(login_url='login')
+def create_room(request):
+
+    form = CreateRoomForm(request.POST)
+
+    if request.method == 'POST' and form.is_valid():
+
+        form.save()
+        messages.success(request, "Your room was created!")
+        return redirect('rooms')
+    context = {'form': form}
+    return render(request, 'webapp/create-room.html', context=context)
 
 
+@login_required(login_url='login')
+def update_room(request, pk):
+
+    room = Room.objects.get(id=pk)
+
+    form = UpdateRoomForm(instance=room)
+
+    if request.method == 'POST':
+
+        form = UpdateRoomForm(request.POST, instance=room)
+
+        if form.is_valid():
+
+            form.save()
+           
+            messages.success(request, "Your room was updated!")
+
+            return redirect("rooms")
+        
+    context = {'form':form}
+
+    return render(request, 'webapp/update-room.html', context=context)
+
+@login_required(login_url='login')
+def delete_room(request, pk):
+
+    room = Room.objects.get(id=pk)
+
+    
+
+    room.delete()
+
+    messages.success(request, "Your room was deleted!")
+
+    return redirect("rooms")
+
+
+@login_required(login_url='login')
+def singular_room(request, pk):
+
+    room = Room.objects.get(id=pk)
+
+    context = {'room': room}
+
+    return render(request, 'webapp/room.html', context=context)
 
 def logout(request):
 

@@ -1,0 +1,56 @@
+{% extends 'webapp/base.html' %}
+
+{% load crispy_forms_tags %}
+
+
+{% block content %}
+
+    <body>
+
+        <div class="container bg-light shadow-md p-5 form-layout">
+
+            <h3> Create room </h3>
+
+            <h6> Please provide the details to the room </h6>
+
+            <hr>
+            <br>
+
+            <form method="POST" autocomplete="off">
+
+                {% csrf_token %}
+
+                {{form.number|as_crispy_field}}
+
+                <br>
+
+                {{form.capacity|as_crispy_field}}
+
+
+
+                
+                <button type="submit" class="btn btn-primary"> 
+                    
+                    Create room &nbsp; <i class="fa fa-check" aria-hidden="true"></i>
+
+                </button>
+
+                &nbsp;
+
+                <a href="{% url 'rooms' %}" class="btn btn-secondary"> 
+
+
+                    Return &nbsp; <i class="fa fa-arrow-left" aria-hidden="true"></i>
+
+                </a>
+
+
+            </form>
+
+        </div>
+
+        <br>
+      
+    </body>
+
+{% endblock %}
